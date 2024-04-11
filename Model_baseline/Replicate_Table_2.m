@@ -1,3 +1,7 @@
+% preliminary step to prepare codes and data
+prepare_all_models;
+
+
 %Baseline
 baseline_calibration
     do_all_solutions=0;
@@ -14,9 +18,9 @@ GAMMA_PI_iii=10;
     do_solve; 
     accuracy_and_simulation;
     present_tables;
-welfare_sit=tilv_mean
-welfare_cyclical_sit=exp(logtilv_tilvss_mean);
-results_vec=[tily_std inflation_std inflationagg_std welfare_sit];
+welfare_sit=tilv_mean;
+CE_loss_sit=100*(welfare_sit/welfare_inftarg-1);
+results_vec=[tily_std inflation_std inflationagg_std welfare_sit CE_loss_sit];
 
 %Hard peg
 baseline_calibration
@@ -27,7 +31,8 @@ GAMMA_E_iii=30;
     accuracy_and_simulation;
     present_tables;
 welfare_peg=tilv_mean;
-results_vec_peg=[tily_std inflation_std inflationagg_std welfare_peg];
+CE_loss_peg=100*(welfare_peg/welfare_inftarg-1);
+results_vec_peg=[tily_std inflation_std inflationagg_std welfare_peg CE_loss_peg];
 
 
 %Taylor rule
@@ -38,7 +43,8 @@ GAMMA_Y_iii=0.5;
     accuracy_and_simulation;
     present_tables;
 welfare_tr=tilv_mean;
-results_vec_tr=[tily_std inflation_std inflationagg_std welfare_tr];
+CE_loss_tr=100*(welfare_tr/welfare_inftarg-1);
+results_vec_tr=[tily_std inflation_std inflationagg_std welfare_tr CE_loss_tr];
 
 %ER augmented Taylor rule
 baseline_calibration
@@ -49,21 +55,20 @@ GAMMA_E_iii=0.5;
     accuracy_and_simulation;
     present_tables;
 welfare_atr=tilv_mean;
-results_vec_atr=[tily_std inflation_std inflationagg_std welfare_atr];
+CE_loss_atr=100*(welfare_atr/welfare_inftarg-1);
+results_vec_atr=[tily_std inflation_std inflationagg_std welfare_atr CE_loss_atr];
 
 
+disp('CE gain w.r.t. FIT')
 
-
-disp('Inflation targeting')
-[welfare_inftarg ]
 disp('Strict Inflation targeting')
-[welfare_inftarg ]
+[CE_loss_sit]
 disp('Hard peg')
-[welfare_peg ]
+[CE_loss_peg ]
 disp('Taylor rule')
-[welfare_tr ]
+[CE_loss_tr ]
 disp('Augmented Taylor rule')
-[welfare_atr ]
+[CE_loss_atr ]
 
 
 
